@@ -1,27 +1,236 @@
-Function BuscarRC(Numero As Double)
+Option Explicit
+Private Sub CrearCategoria()
+Dim NombreFuncion As String
+Dim DescFuncion As String
+Dim Categoria As String
+Dim DescArgs() As String
 
-    Dim Resultado As Double
-    
- 
-    
-    If Numero > 0 And Numero <= 0.2 Then
+ReDim DescArgs(1 To 1)
+NombreFuncion = "ExtraeNumeros"
+DescFuncion = "Devuelve los caracteres numéricos de una referencia o celda."
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Es la celda o refencia que contiene el texto que se extraerá"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+
+ReDim DescArgs(1 To 2)
+NombreFuncion = "ConvertirTexto"
+DescFuncion = "Convierte un texto en minúsculas o MAYÚSCULAS."
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Es la celda que contiene el texto a convertir."
+DescArgs(2) = "Opcional. Es la opción a convertir. 1 = MAYÚSCULAS, 2 = minúsculas"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+            
+ReDim DescArgs(1 To 3)
+NombreFuncion = "BuscarRC"
+DescFuncion = "Devuelve el orden en que se encuentra el rango. Usado para las estadisticas en Omisos"
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Es el porcentaje obtenido entre Retenciones sobre el Impuesto Determinado"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+            
+ReDim DescArgs(1 To 4)
+NombreFuncion = "IMPUESTO_RS2017"
+DescFuncion = "Devuelve el impuesto determinado con base al año 2017"
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Total de Ingreso Determinado"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+            
+ReDim DescArgs(1 To 5)
+NombreFuncion = "IMPUESTO_RS2018"
+DescFuncion = "Devuelve el impuesto determinado con base al año 2017"
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Total de Ingreso Determinado"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+            
+ReDim DescArgs(1 To 6)
+NombreFuncion = "IMPUESTO_RS2019"
+DescFuncion = "Devuelve el impuesto determinado con base al año 2017"
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Total de Ingreso Determinado"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+            
+ReDim DescArgs(1 To 7)
+NombreFuncion = "IMPUESTO_RS2020"
+DescFuncion = "Devuelve el impuesto determinado con base al año 2017"
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Total de Ingreso Determinado"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+
+ReDim DescArgs(1 To 8)
+NombreFuncion = "IMPUESTO_DETERMINADO_RC"
+DescFuncion = "Devuelve el impuesto determinado Régimen Común"
+Categoria = "Inteligencia Tributaria"
+DescArgs(1) = "Total de Ingreso Determinado"
+DescArgs(2) = "Tarifa CIIU"
+
+Application.MacroOptions _
+            Macro:=NombreFuncion, _
+            Description:=DescFuncion, _
+            Category:=Categoria, _
+            ArgumentDescriptions:=DescArgs
+            
+End Sub
+
+********************** Modulo Funciones**************
+
+Option Explicit
+
+Function BuscarRC(Porcentaje As Double) As Double
+
+      
+    If Porcentaje > 0 And Porcentaje <= 0.2 Then
         BuscarRC = 1
-    ElseIf Numero > 0.2 And Numero <= 0.4 Then
+    ElseIf Porcentaje > 0.2 And Porcentaje <= 0.4 Then
         BuscarRC = 2
-    ElseIf Numero > 0.4 And Numero <= 0.6 Then
+    ElseIf Porcentaje > 0.4 And Porcentaje <= 0.6 Then
         BuscarRC = 3
-    ElseIf Numero > 0.6 And Numero <= 0.8 Then
+    ElseIf Porcentaje > 0.6 And Porcentaje <= 0.8 Then
         BuscarRC = 4
-    ElseIf Numero > 0.8 And Numero <= 1 Then
+    ElseIf Porcentaje > 0.8 And Porcentaje <= 1 Then
         BuscarRC = 5
-    ElseIf Numero > 1 Then
+    ElseIf Porcentaje > 1 Then
         BuscarRC = 6
     Else
         BuscarRC = 0
     End If
             
+End Function
+Function IMPUESTO_RS2017(Total_Ingreso_Determinado As Double)
+
+'5    $           -     $  25487000
+'10   $     25487001    $    50974000
+'15   $     50974001    $    76462000
+'20   $     76462001    $   101949000
+'25   $   101949001     $   111507000
+
+ Dim UVT2017 As Double
+ UVT2017 = 31859
+    
+    If Total_Ingreso_Determinado > 0 And Total_Ingreso_Determinado <= 25487000 Then
+        IMPUESTO_RS2017 = 5 * UVT2017
+    ElseIf Total_Ingreso_Determinado >= 25487001 And Total_Ingreso_Determinado <= 50974000 Then
+        IMPUESTO_RS2017 = 10 * UVT2017
+    ElseIf Total_Ingreso_Determinado >= 50974001 And Total_Ingreso_Determinado <= 76462000 Then
+        IMPUESTO_RS2017 = 15 * UVT2017
+    ElseIf Total_Ingreso_Determinado >= 76462001 And Total_Ingreso_Determinado <= 101949000 Then
+        IMPUESTO_RS2017 = 20 * UVT2017
+    ElseIf Total_Ingreso_Determinado >= 101949001 And Total_Ingreso_Determinado <= 111507000 Then
+        IMPUESTO_RS2017 = 25 * UVT2017
+    End If
+            
+End Function
+Function IMPUESTO_RS2018(Total_Ingreso_Determinado As Double)
+
+'5    $          -    $         26525000
+'10   $         26525001    $         53050000
+'15   $         53050001    $         79574000
+'20   $         79574001    $      106099000
+'25   $      106099001  $      116046000
 
 
+
+ Dim UVT2018 As Double
+ UVT2018 = 33156
+    
+    If Total_Ingreso_Determinado > 0 And Total_Ingreso_Determinado <= 26525000 Then
+        IMPUESTO_RS2018 = 5 * UVT2018
+    ElseIf Total_Ingreso_Determinado >= 26525001 And Total_Ingreso_Determinado <= 53050000 Then
+        IMPUESTO_RS2018 = 10 * UVT2018
+    ElseIf Total_Ingreso_Determinado >= 53050001 And Total_Ingreso_Determinado <= 79574000 Then
+        IMPUESTO_RS2018 = 15 * UVT2018
+    ElseIf Total_Ingreso_Determinado >= 79574001 And Total_Ingreso_Determinado <= 106099000 Then
+        IMPUESTO_RS2018 = 20 * UVT2018
+    ElseIf Total_Ingreso_Determinado >= 106099001 And Total_Ingreso_Determinado <= 116046000 Then
+        IMPUESTO_RS2018 = 25 * UVT2018
+    End If
+            
+End Function
+
+Function IMPUESTO_RS2019(Total_Ingreso_Determinado As Double)
+
+'5    $                       -       $     27416000
+'10   $     27415001    $     54832000
+'15   $     54832001    $     82248000
+'20   $     82248001    $   109664000
+'25   $   109664001     $   119945000
+
+
+
+
+ Dim UVT2019 As Double
+ UVT2019 = 34270
+    
+    If Total_Ingreso_Determinado > 0 And Total_Ingreso_Determinado <= 27416000 Then
+        IMPUESTO_RS2019 = 5 * UVT2019
+    ElseIf Total_Ingreso_Determinado >= 27416001 And Total_Ingreso_Determinado <= 54832000 Then
+        IMPUESTO_RS2019 = 10 * UVT2019
+    ElseIf Total_Ingreso_Determinado >= 54832001 And Total_Ingreso_Determinado <= 82248000 Then
+        IMPUESTO_RS2019 = 15 * UVT2019
+    ElseIf Total_Ingreso_Determinado >= 82248001 And Total_Ingreso_Determinado <= 109664000 Then
+        IMPUESTO_RS2019 = 20 * UVT2019
+    ElseIf Total_Ingreso_Determinado >= 109664001 And Total_Ingreso_Determinado <= 119945000 Then
+        IMPUESTO_RS2019 = 25 * UVT2019
+    End If
+            
+End Function
+
+Function IMPUESTO_RS2020(Total_Ingreso_Determinado As Double)
+
+'5    $                       -       $     28486000
+'10   $     28486001    $     56971000
+'15   $     56971001    $     85457000
+'20   $     85457001    $   113942000
+'25   $   113942001     $   124625000
+
+ Dim UVT2020 As Double
+ UVT2020 = 35607
+    
+    If Total_Ingreso_Determinado > 0 And Total_Ingreso_Determinado <= 28486000 Then
+        IMPUESTO_RS2020 = 5 * UVT2020
+    ElseIf Total_Ingreso_Determinado >= 28486001 And Total_Ingreso_Determinado <= 56971000 Then
+        IMPUESTO_RS2020 = 10 * UVT2020
+    ElseIf Total_Ingreso_Determinado >= 56971001 And Total_Ingreso_Determinado <= 85457000 Then
+        IMPUESTO_RS2020 = 15 * UVT2020
+    ElseIf Total_Ingreso_Determinado >= 85457001 And Total_Ingreso_Determinado <= 113942000 Then
+        IMPUESTO_RS2020 = 20 * UVT2020
+    ElseIf Total_Ingreso_Determinado >= 113942001 And Total_Ingreso_Determinado <= 124625000 Then
+        IMPUESTO_RS2020 = 25 * UVT2020
+    End If
+            
 End Function
 
 Function BuscarVCondicional(Matriz As Range, Condicion1 As Variant, Columna1 As Integer, Condicion2 As Variant, Columna2 As Integer, ColumnaResultado As Integer)
@@ -56,42 +265,7 @@ Function BuscarVCondicional(Matriz As Range, Condicion1 As Variant, Columna1 As 
 
 End Function
 
-
-
-=BuscarVCondicional('MATRIZ GENERAL'!A:E;[@NIT];1;[@VIGENCIA];3;5)
-
-
-
-
-Price Group =
-IF(
-    'Product'[List Price] < 500,
-    "Low",
-    IF(
-        'Product'[List Price] < 1500,
-        "Medium",
-        "High"
-    )
-)
-
-
-(Input) => 
-     let 
-       ClasificacionPeriodo = 
-         { 
-             {(x)=>x<.2, "20 %"},
-             {(x)=>x<.4, "40 %"}, 
-             {(x)=>x<.6, "60 %"}, 
-             {(x)=>x<.8, "80 %"}, 
-             {(x)=>x<1, "100 %"},  
-             {(x)=>true, "> 100 %"} 
-         }, 
-       Resultado = List.First(List.Select(ClasificacionPeriodo, each _{0}(Input))){1} 
-     in 
-       Resultado
-	   
-	  
-	  Sub CompararNit()
+Sub CompararNit()
 
 Dim x As Long
 Dim Nit As Variant
@@ -138,3 +312,54 @@ Sub ordenar()
     Selection.Sort key1:=Range("a2", Range("A2").End(xlDown)), _
     order1:=xlAscending, Header:=xlNo
 End Sub
+Function IMPUESTO_DETERMINADO_RC(Total_Ingreso_Determinado As Double, Tarifa As Integer) As Double
+'=([@[TOTAL INGRESOS DETERMINADOS]]*[@[TARIFA POR MIL (0/00)]])/1000
+
+
+    IMPUESTO_DETERMINADO_RC = Total_Ingreso_Determinado * (Tarifa / 1000)
+
+            
+End Function
+Function ExtraeNumeros(Texto As Variant)
+
+Dim Largo As Integer
+Dim i As Integer
+Dim Valor As String
+Dim Valor1 As String
+
+Application.Volatile
+
+Largo = VBA.Len(Texto)
+
+For i = 1 To Largo
+    Valor = VBA.Mid(Texto, i, 1)
+    If VBA.Asc(Valor) >= 48 And VBA.Asc(Valor) <= 57 Then
+        Valor1 = Valor1 & Valor
+    Else
+    'Nada
+    End If
+Next i
+
+ExtraeNumeros = Valor1
+
+End Function
+Function ConvertirTexto(Texto As String, Optional Tipo As Variant)
+
+Application.Volatile
+
+If VBA.IsMissing(Tipo) Then
+    Tipo = 0
+    ConvertirTexto = Texto
+Else
+    Select Case Tipo
+        Case 1
+            ConvertirTexto = VBA.UCase(Texto)
+        Case 2
+            ConvertirTexto = VBA.LCase(Texto)
+        Case Else
+            ConvertirTexto = VBA.CVErr(xlErrValue)
+    End Select
+End If
+
+End Function
+
