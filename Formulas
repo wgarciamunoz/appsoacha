@@ -1,0 +1,140 @@
+Function BuscarRC(Numero As Double)
+
+    Dim Resultado As Double
+    
+ 
+    
+    If Numero > 0 And Numero <= 0.2 Then
+        BuscarRC = 1
+    ElseIf Numero > 0.2 And Numero <= 0.4 Then
+        BuscarRC = 2
+    ElseIf Numero > 0.4 And Numero <= 0.6 Then
+        BuscarRC = 3
+    ElseIf Numero > 0.6 And Numero <= 0.8 Then
+        BuscarRC = 4
+    ElseIf Numero > 0.8 And Numero <= 1 Then
+        BuscarRC = 5
+    ElseIf Numero > 1 Then
+        BuscarRC = 6
+    Else
+        BuscarRC = 0
+    End If
+            
+
+
+End Function
+
+Function BuscarVCondicional(Matriz As Range, Condicion1 As Variant, Columna1 As Integer, Condicion2 As Variant, Columna2 As Integer, ColumnaResultado As Integer)
+
+
+
+    Dim Resultado As Variant
+    Resultado = ""
+    
+    For i = 1 To Matriz.Rows.Count
+    
+    If Matriz(i, Columna1) = Condicion1 And Matriz(i, Columna2) = Condicion2 Then
+    
+    Resultado = Matriz(i, ColumnaResultado)
+    Exit For
+        
+    End If
+    
+    
+    If Resultado <> "" Then
+        BuscarVCondicional = Resultado
+    Else
+        BuscarVCondicional = ""
+    End If
+    
+    
+    
+    
+    Next i
+    
+    
+
+End Function
+
+
+
+=BuscarVCondicional('MATRIZ GENERAL'!A:E;[@NIT];1;[@VIGENCIA];3;5)
+
+
+
+
+Price Group =
+IF(
+    'Product'[List Price] < 500,
+    "Low",
+    IF(
+        'Product'[List Price] < 1500,
+        "Medium",
+        "High"
+    )
+)
+
+
+(Input) => 
+     let 
+       ClasificacionPeriodo = 
+         { 
+             {(x)=>x<.2, "20 %"},
+             {(x)=>x<.4, "40 %"}, 
+             {(x)=>x<.6, "60 %"}, 
+             {(x)=>x<.8, "80 %"}, 
+             {(x)=>x<1, "100 %"},  
+             {(x)=>true, "> 100 %"} 
+         }, 
+       Resultado = List.First(List.Select(ClasificacionPeriodo, each _{0}(Input))){1} 
+     in 
+       Resultado
+	   
+	  
+	  Sub CompararNit()
+
+Dim x As Long
+Dim Nit As Variant
+Dim Nit2 As Variant
+Dim tNit As String
+Dim tNit2 As String
+Dim FilaSerie As Long
+Dim Rango As String
+Dim Rango1 As String
+
+Application.ScreenUpdating = False
+
+NumRows = Range("A1", Range("A1").End(xlDown)).Rows.Count
+
+Range("A2").Select
+Call ordenar
+FilaSerie = 2
+    For x = 1 To NumRows
+    
+    tNit = ActiveCell.Value
+    Nit = Val(tNit) + 1
+    ActiveCell.Offset(1, 0).Select
+    FilaSerie = FilaSerie + 1
+    tNit2 = ActiveCell.Value
+    Nit2 = Val(tNit2)
+    
+    If Nit = Nit2 Then
+        Range("C" & FilaSerie).Value = "Serie"
+        Rango = "A" & FilaSerie & ":" & "c" & FilaSerie
+        Rango1 = "A" & FilaSerie - 1 & ":" & "c" & FilaSerie - 1
+        Range(Rango1).Interior.ColorIndex = 24
+        Range(Rango).Interior.ColorIndex = 24
+
+    End If
+    
+    Next
+
+Application.ScreenUpdating = True
+End Sub
+Sub ordenar()
+
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Sort key1:=Range("a2", Range("A2").End(xlDown)), _
+    order1:=xlAscending, Header:=xlNo
+End Sub
