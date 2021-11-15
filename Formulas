@@ -363,3 +363,261 @@ End If
 
 End Function
 
+Function FindReplaceRegex(rng As Range, reg_exp As String, replace As String)
+    Dim myRegExp As Object
+    Set myRegExp = CreateObject("VBScript.RegExp")
+
+    myRegExp.IgnoreCase = False
+    myRegExp.Global = True
+    myRegExp.Pattern = reg_exp
+    
+    FindReplaceRegex = myRegExp.replace(rng.Value, replace)
+End Function
+
+
+
+Sub ReemplazaNA_G()
+'On Error Resume Next
+On Error GoTo eh
+Dim regex As Object, regexMatches As Object
+Dim r As Range, rC As Range
+Dim Columna As String
+Dim Col As String
+Dim ultimaFila As Long
+Dim Rango As String
+' cells in column A
+
+ultimaFila = ActiveSheet.UsedRange.SpecialCells(xlCellTypeLastCell).Row
+Set regex = CreateObject("VBScript.RegExp")
+
+
+With regex
+    .Pattern = "\b[nN]\/[aA]\b|\b[nN][aA]\b|\b[nN][Oo] [Aa][pP][lL][iI][cC][aA]\b|\b0\b|[!@#$%^&._*]"
+    .Global = True
+    .IgnoreCase = True
+    .MultiLine = True
+End With
+
+For i = 1 To 5
+
+    Select Case i
+    Case 1
+        Columna = "g2"
+        Col = "g"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+        
+    Case 2
+        Columna = "H2"
+        Col = "H"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+        
+    Case 3
+        Columna = "i2"
+        Col = "i"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 4
+        Columna = "j2"
+        Col = "j"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 5
+        Columna = "k2"
+        Col = "k"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    
+
+    End Select
+    Set r = Application.Range(Rango)
+    'Set r = Range(Columna, Cells(Rows.Count, Col).End(xlUp))
+    ' loop through the cells in column A and execute regex replace 370527
+    For Each rC In r
+        'Debug.Print rC.Address
+        Set regexMatches = regex.Execute(rC.Value)
+        If regexMatches.Count > 0 Then
+            rC.Value = regex.Replace(rC.Value, "")
+        End If
+    Next rC
+    Debug.Print i
+Next i
+
+    
+Done:
+    Exit Sub
+eh:
+    Debug.Print "Error number: " & Err.Number _
+            & " " & Err.Description
+            
+End Sub
+
+Sub ReemplazaNA_H()
+'On Error Resume Next
+On Error GoTo eh
+Dim regex As Object, regexMatches As Object
+Dim r As Range, rC As Range
+Dim Columna As String
+Dim Col As String
+Dim ultimaFila As Long
+Dim Rango As String
+' cells in column A
+
+ultimaFila = ActiveSheet.UsedRange.SpecialCells(xlCellTypeLastCell).Row
+Set regex = CreateObject("VBScript.RegExp")
+
+
+With regex
+    .Pattern = "\b[nN]\/[aA]\b|\b[nN][aA]\b|\b[nN][Oo] [Aa][pP][lL][iI][cC][aA]\b|\b0\b|[!@#$%^&._*]"
+    .Global = True
+    .IgnoreCase = True
+    .MultiLine = True
+End With
+
+For i = 1 To 5
+
+    Select Case i
+        Case 1
+        Columna = "H2"
+        Col = "H"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+        
+    Case 2
+        Columna = "i2"
+        Col = "i"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 3
+        Columna = "j2"
+        Col = "j"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 4
+        Columna = "k2"
+        Col = "k"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 5
+        Columna = "l2"
+        Col = "l"
+       Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+
+
+    End Select
+    Set r = Application.Range(Rango)
+    'Set r = Range(Columna, Cells(Rows.Count, Col).End(xlUp))
+    ' loop through the cells in column A and execute regex replace 370527
+    For Each rC In r
+        'Debug.Print rC.Address
+        Set regexMatches = regex.Execute(rC.Value)
+        If regexMatches.Count > 0 Then
+            rC.Value = regex.Replace(rC.Value, "")
+        End If
+    Next rC
+    Debug.Print i
+Next i
+
+        
+    
+
+Done:
+    Exit Sub
+eh:
+    Debug.Print "Error number: " & Err.Number _
+            & " " & Err.Description
+            
+End Sub
+
+Sub ReemplazaNA_I()
+'On Error Resume Next
+On Error GoTo eh
+Dim regex As Object, regexMatches As Object
+Dim r As Range, rC As Range
+Dim Columna As String
+Dim Col As String
+Dim ultimaFila As Long
+Dim Rango As String
+' cells in column A
+
+ultimaFila = ActiveSheet.UsedRange.SpecialCells(xlCellTypeLastCell).Row
+Set regex = CreateObject("VBScript.RegExp")
+
+
+With regex
+    .Pattern = "\b[nN]\/[aA]\b|\b[nN][aA]\b|\b[nN][Oo] [Aa][pP][lL][iI][cC][aA]\b|\b0\b|[!@#$%^&._*]"
+    .Global = True
+    .IgnoreCase = True
+    .MultiLine = True
+End With
+
+For i = 1 To 5
+
+    Select Case i
+    Case 1
+        Columna = "i2"
+        Col = "i"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 2
+        Columna = "j2"
+        Col = "j"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 3
+        Columna = "k2"
+        Col = "k"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 4
+        Columna = "l2"
+        Col = "l"
+       Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+    Case 5
+        Columna = "m2"
+        Col = "m"
+        Rango = Columna & ":" & Col & ultimaFila
+        Debug.Print i
+        Debug.Print Rango
+
+    End Select
+    Set r = Application.Range(Rango)
+    'Set r = Range(Columna, Cells(Rows.Count, Col).End(xlUp))
+    ' loop through the cells in column A and execute regex replace 370527
+    For Each rC In r
+        Debug.Print rC.Address
+        Set regexMatches = regex.Execute(rC.Value)
+        If regexMatches.Count > 0 Then
+            rC.Value = regex.Replace(rC.Value, "")
+        End If
+    Next rC
+    Debug.Print i
+Next i
+
+        
+    
+
+Done:
+    Exit Sub
+eh:
+    Debug.Print "Error number: " & Err.Number _
+            & " " & Err.Description
+            
+End Sub
